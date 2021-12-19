@@ -19,6 +19,7 @@ from encoders.random_vertex_embedding import RandomEmbedding
 from extras.residual_layer import ResidualLayer
 from extras.highway_layer import HighwayLayer
 from extras.dropover import DropoverLayer
+from extras.graphsage import GraphSageEmbedding
 
 from extras.variational_encoding import VariationalEncoding
 
@@ -136,15 +137,6 @@ def build_encoder(encoder_settings, triples, entities):
 
         layers = int(encoder_settings['NumberOfLayers'])
 
-        # ------------------------------------------------------------------------
-        # TODO insert GraphSAGE embedding
-
-        from extras.graph_sage import GraphSageEmbedder
-        number_of_entities = len(entities)
-        gsage = GraphSageEmbedder(triples, layer_sizes=[number_of_entities, number_of_entities])
-        gsage_embeddings = gsage.generate_feature_embeddings()
-        # ------------------------------------------------------------------------
-
         if encoder_settings['UseInputTransform'] == "Yes":
             encoding = AffineTransform(input_shape,
                                        encoder_settings,
@@ -168,10 +160,15 @@ def build_encoder(encoder_settings, triples, entities):
                                        next_component=graph)
             encoding = DropoverLayer(input_shape,
                                      next_component=encoding1,
-                                     next_component_2=encoding2)
+                                     next_component_2=encoding2) 
+        elif encoder_settings['UseGraphSage'] == 'Yes':
+            encoding = GraphSageEmbedding(entities, input_shape,
+                                       encoder_settings,
+                                       next_component=graph)
         else:
             encoding = graph
-
+        
+        
         # Hidden layers:
         encoding = apply_basis_gcn(encoder_settings, encoding, internal_shape, layers)
 
@@ -285,7 +282,8 @@ def apply_basis_gcn(encoder_settings, encoding, internal_shape, layers):
         if layer == 0 \
                 and encoder_settings['UseInputTransform'] == "No" \
                 and encoder_settings['RandomInput'] == "No"  \
-                and encoder_settings['PartiallyRandomInput'] == "No" :
+                and encoder_settings['PartiallyRandomInput'] == "No" \
+                and encoder_settings['UseGraphSage'] == "No":
             onehot_input = True
         else:
             onehot_input = False
