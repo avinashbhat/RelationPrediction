@@ -27,8 +27,8 @@
 	ReportTrainLossEvery=100
 
 	[EarlyStopping]
-		CheckEvery=2000
-		BurninPhaseDuration=6000
+		CheckEvery=200
+		BurninPhaseDuration=1900
 
 	[Algorithm]
 		Name=Adam

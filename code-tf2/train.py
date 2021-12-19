@@ -111,9 +111,9 @@ scorer.finalize_frequency_computation(np.concatenate((train_triplets, valid_trip
 
 def score_validation_data(validation_data):
     score_summary = scorer.compute_scores(validation_data, verbose=False).get_summary()
-    #score_summary.dump_degrees('dumps/degrees.in', 'dumps/degrees.out')
-    #score_summary.dump_frequencies('dumps/near.freq', 'dumps/target.freq')
-    #score_summary.pretty_print()
+    score_summary.dump_degrees('dumps/degrees.in', 'dumps/degrees.out')
+    score_summary.dump_frequencies('dumps/near.freq', 'dumps/target.freq')
+    score_summary.pretty_print()
 
     if evaluation_settings['Metric'] == 'MRR':
         lookup_string = score_summary.mrr_string()
@@ -282,5 +282,5 @@ optimizer = build_tensorflow(loss, optimizer_weights, optimizer_parameters, opti
 optimizer.set_session(model.session)
 
 optimizer.fit(train_triplets, validation_data=valid_triplets)
-#scorer.dump_all_scores(valid_triplets, 'dumps/subjects.valid', 'dumps/objects.valid')
-#scorer.dump_all_scores(test_triplets, 'dumps/subjects.test', 'dumps/objects.test')
+scorer.dump_all_scores(valid_triplets, 'dumps/subjects.valid', 'dumps/objects.valid')
+scorer.dump_all_scores(test_triplets, 'dumps/subjects.test', 'dumps/objects.test')
