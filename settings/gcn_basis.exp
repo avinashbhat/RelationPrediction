@@ -4,13 +4,13 @@
 	InternalEncoderDimension=500
 	NumberOfBasisFunctions=5
 	NumberOfLayers=2
-	UseInputTransform=Yes
+	UseInputTransform=No
 	UseOutputTransform=No
 	AddDiagonal=No
 	DiagonalCoefficients=No
 	SkipConnections=None
 	StoreEdgeData=No
-	RandomInput=No
+	RandomInput=Yes
 	PartiallyRandomInput=No
 	Concatenation=No
 	UseGraphSage=No
