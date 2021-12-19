@@ -12,7 +12,7 @@ We ported this project to use the TensorFlow 2 API. In particular, the following
 * Disabled eager execution for now (see top of `code-tf2/train.py`)
 
 Example train script:
-`python.exe code-tf2/train.py --settings ../settings/gcn_basis.exp --dataset ../data/FB-Toutanova`
+`python.exe code-tf2/train.py --settings ../settings/gcn_block.exp --dataset ../data/FB-Toutanova`
 
 ***
 ***

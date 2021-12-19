@@ -4,7 +4,7 @@
 	InternalEncoderDimension=500
 	NumberOfBasisFunctions=100
 	NumberOfLayers=2
-	UseInputTransform=Yes
+	UseInputTransform=no
 	UseOutputTransform=No
 	AddDiagonal=No
 	DiagonalCoefficients=No
@@ -13,6 +13,7 @@
 	RandomInput=No
 	PartiallyRandomInput=No
 	Concatenation=Yes
+	UseGraphSage=Yes
 
 [Decoder]
 	Name=bilinear-diag
@@ -37,7 +38,7 @@
 	NegativeSampleRate=10
 	GraphSplitSize=0.5
 	ExperimentName=models/GcnBlock
-	GraphBatchSize=30000
+	GraphBatchSize=5000
 
 [Evaluation]
 	Metric=MRR
