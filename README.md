@@ -14,6 +14,18 @@ We ported this project to use the TensorFlow 2 API. In particular, the following
 Example train script:
 `python.exe code-tf2/train.py --settings ../settings/gcn_basis.exp --dataset ../data/FB-Toutanova`
 
+To install CUDA on Windows: https://shawnhymel.com/1961/how-to-install-tensorflow-with-gpu-support-on-windows/
+
+These branches contain code for the various experiments we reported in the report:
+* abht : GCN basis with GraphSAGE
+* abht-exp2 : GCN block with GraphSAGE
+* abht-exp3 : GCN basis without GraphSAGE
+* abht-exp4 : GCN block without GraphSAGE
+* abht-exp5 : GCN basis with random without GraphSAGE
+* abht-exp6 : GCN block with random without GraphSAGE
+
+Note that in order to run these tests, you will need to change the `.exp` file flag based on either basis or block.
+
 ***
 ***
 
