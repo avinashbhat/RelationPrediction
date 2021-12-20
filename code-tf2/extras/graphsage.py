@@ -7,19 +7,17 @@ from stellargraph.layer import GraphSAGE, MeanAggregator, link_classification
 from stellargraph.mapper import GraphSAGELinkGenerator, GraphSAGENodeGenerator
 import numpy as np
 """
-Takes in a graph G, depth K, weight matrices W, non-linear function and aggregration
-function.
+Takes in a graph G, depth K, non-linear function and aggregration
+function as flags.
 Outputs a representation of G after applying the GraphSAGE algorithm on it.
 """
 
 
 class GraphSageEmbedding(Model):
     embedding_width = None
-
     W = None
     b = None
     shape = None
-
     stored_W = None
 
     def __init__(self, entities, shape, settings,
@@ -27,6 +25,9 @@ class GraphSageEmbedding(Model):
                     batch_size=20,
                     num_samples_per_hop=None,
                     layer_sizes=None):
+        """
+            Initializes GraphSAGE hyperparameters.
+        """
         Model.__init__(self, next_component, settings)
         self.entities = entities
         self.shape = shape
@@ -69,6 +70,9 @@ class GraphSageEmbedding(Model):
         return result
 
     def _get_stellargraph_embeddings(self, triplets):
+        """
+            Returns a stellarGraph representation for the given graph (expressed as triplet relations).
+        """
         # https: // stellargraph.readthedocs.io / en / stable / demos / basics / loading - numpy.html  # Non-sequential-graph-structure
         edges = pd.DataFrame(
             {
@@ -153,5 +157,6 @@ class GraphSageEmbedding(Model):
         # in the training pipeline. 
         # We overload this function here, and plug in the weights of the edges.
         g_output = self.generate_feature_embeddings()
+
+        # should return shape (14541,500) for the Toutanova dataset
         return g_output, None, g_output
-        # should return (14541,500) shape
